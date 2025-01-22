@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamagotchi Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="background-music" loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <div class="home-container">
+        <h1>Welcome to Kuchipatchi!</h1>
+        <p>Your goal is to take care of your virtual pet by feeding it, keeping it happy, and ensuring it gets enough rest. Monitor your pet's status using the health, hunger, and happiness bars. If any of these drop too low, your Tamagotchi might get sick or even worse, so be attentive!</p>
+        <p>Use the buttons in the game to interact with your pet and make sure it thrives!</p>
+        <button class="start-button"><a href="index.html">Start Game</a></button>
+
+        <button class="mute-button" onclick="toggleMute()">
+            <img id="mute-icon" src="unmute-icon.png" alt="Mute/Unmute">
+        </button>
+    </div>
+
+    <div id="music-modal" class="modal">
+        <div class="modal-content">
+            <p>Would you like background music when playing the game?</p>
+            <button id="yes-button">Yes</button>
+            <button id="no-button">No</button>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const musicModal = document.getElementById('music-modal');
+        const muteButton = document.getElementById('mute-icon');
+
+        function checkMusicPreference() {
+            const musicPreference = localStorage.getItem('playMusic');
+            if (musicPreference === 'yes') {
+                audio.play();
+            }
+        }
+
+        if (localStorage.getItem('musicPromptShown') !== 'true') {
+            musicModal.style.display = 'block';
+        }
+
+        document.getElementById('yes-button').addEventListener('click', () => {
+            setMusicPreference('yes');
+        });
+
+        document.getElementById('no-button').addEventListener('click', () => {
+            setMusicPreference('no');
+        });
+
+        function setMusicPreference(preference) {
+            localStorage.setItem('playMusic', preference);
+            localStorage.setItem('musicPromptShown', 'true');
+            if (preference === 'yes') {
+                audio.play();
+            }
+            musicModal.style.display = 'none';
+        }
+
+        function toggleMute() {
+            if (audio.muted) {
+                audio.muted = false;
+                muteButton.src = "unmute-icon.png"; 
+            } else {
+                audio.muted = true;
+                muteButton.src = "volume-mute.png"; 
+            }
+        }
+
+        checkMusicPreference();
+    </script>
+</body>
+</html>

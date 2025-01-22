@@ -1,0 +1,360 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(145deg, #ff6b6b, #ff0080);
+    overflow: hidden;
+}
+
+.tamagotchi-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border: 3px solid #333;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    position: absolute;
+    height: 600px;
+}
+
+.screen {
+    margin: 0;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(145deg, #f3f3f3, #dcdcdc);
+    border: 5px solid #333;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 48px;
+    color: #555;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.status-bars {
+    margin: 0;
+    width: 100%;
+}
+
+.bar-container {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bar {
+    margin: 0;
+    height: 20px;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(145deg, #6bff6b, #57ff57);
+    position: relative;
+    transition: width 0.8s ease;
+}
+
+.fill span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-weight: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.button {
+    margin-top: 40px;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ff6b6b, #ff4757);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-in-out;
+}
+
+.button:active {
+    transform: scale(0.9);
+}
+
+.Play, .Feed, .Wash {
+    font-size: 20px;
+}
+
+.game-over {
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(244, 77, 77, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.game-over button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+.hunger-value {
+    margin-top: 20px;
+}
+
+p {
+    margin: 0;
+}
+
+.home-container {
+    text-align: center;
+    overflow: hidden;
+    padding: 40px;
+    border: 3px solid #333;
+    border-radius: 20px;
+    background: radial-gradient(circle, #ffffff, #ffe6e6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 400px;
+}
+
+.start-button {
+    padding: 15px 30px;
+    margin: 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #6bff6b, #57ff57);
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.start-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.start-button:hover {
+    color: red;
+}
+
+.chatbox {
+    margin-right: 500px;
+    position: absolute;
+    left: 80px;
+}
+
+.mute-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.mute-button img {
+    width: 30px;
+    height: 30px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    color: #333;
+    border: solid 2px #333; 
+}
+
+.modal-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(145deg, #6bff6b, #57ff57);
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+}
+
+.achievements {
+    position: absolute;
+    margin-left: 60%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    border: 3px solid #333;
+}
+
+.achievements h2 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+#achievement-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#achievement-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #888;
+    padding: 10px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+#achievement-list li.unlocked {
+    color: #000;
+    background-color: #e0ffe0;
+}
+
+/* Voeg dit toe aan je bestaande CSS */
+.pause-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+.pause-button:hover {
+    color: #ff6b6b;
+}
+
+#pause-menu {
+    display: none; /* Verberg het pauzemenu standaard */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#pause-menu .modal-content {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: solid 3px #333;
+}
+
+#pause-menu button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ff6b6b;
+    color: #FFF;
+    cursor: pointer;
+   
+}
+
+#pause-menu button:hover {
+    color: #000000;
+   
+}
+
+.achievements.hidden {
+    display: none;
+   
+}
+
+#toggle-achievements-button {
+    position: absolute; 
+    top: 94.5%; 
+    right: 134px; 
+    background-color: #ff6b6b; 
+    color: white; 
+    border: none; 
+    padding: 5px 5px; 
+    border-radius: 20px; 
+    font-size: 14px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    transition: background-color 0.3s ease, transform 0.1s ease; 
+}
+
+
+#toggle-achievements-button:hover {
+    background-color: #ff4757; 
+}
+
+#toggle-achievements-button:active {
+    transform: scale(0.95); 
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamagotchi Project</title>
+    <link rel="stylesheet" href="style.css">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <button class="pause-button" onclick="togglePause()"><i class="fa fa-bars"></i></button>
+        <button class="mute-button" onclick="toggleMute()">
+            <img id="mute-icon" src="unmute-icon.png" alt="Mute/Unmute">
+        </button>
+    </header>
+
+    <section id="pause-menu" class="modal">
+        <section class="modal-content">
+            <h2>Pause Menu</h2>
+            <button onclick="goToHome()">Return to Home</button>
+            <button onclick="resumeGame()">Resume Game</button>
+        </section>
+    </section>
+
+    <section class="chatbox">   
+        <p id="tamagotchi-chat">Hello, I'm your Tamagotchi! How are you today?</p>
+    </section>
+    
+    <section class="tamagotchi-container">
+        <section class="screen">
+            <img id="tamagotchi-image" src="StartTM.png" alt="Tamagotchi">
+        </section>
+        <section class="status-bars">
+            <section class="bar-container">
+                <p>Hunger:</p>
+                <section class="bar">
+                    <section id="hunger-bar" class="fill" style="width: 100%;">
+                        <span id="hunger-value">10</span>
+                    </section>
+                </section>
+                <p>Energy:</p>
+                <section class="bar">
+                    <section id="energy-bar" class="fill" style="width: 100%;">
+                        <span id="energy-value">10</span>
+                    </section>
+                </section>
+                <p>Happiness:</p>
+                <section class="bar">
+                    <section id="happiness-bar" class="fill" style="width: 100%;">
+                        <span id="happiness-value">10</span>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <section class="buttons">
+            <button class="button" onclick="feed()">
+                <p class="Feed">🍔Feed</p>
+            </button>
+            <button class="button" onclick="play()">
+                <p class="Play">⚽Play</p>
+            </button>
+            <button class="button" onclick="sleep()">
+                <p class="Wash">😴Sleep</p>
+            </button>
+            
+        </section>
+        <button id="toggle-achievements-button" class="toggle" onclick="toggleAchievements()">Toggle Achievements</button>
+        <section class="game-over" id="game-over">
+            <h2>Game Over!</h2>
+            <p>Your Tamagotchi needs better care!</p>
+            <button onclick="retry()">Retry</button>
+        </section>
+    </section>
+    
+    
+    
+    <section class="achievements">
+        <h2>Achievements</h2>
+        <ul id="achievement-list">
+            <li class="locked">🔒 First Meal</li>
+            <li class="locked">🔒 Playtime Beginner</li>
+            <li class="locked">🔒 Good Night's Sleep</li>
+            <li class="locked">🔒 Hungry No More</li>
+            <li class="locked">🔒 Playtime Pro</li>
+            <li class="locked">🔒 Sleepyhead</li>
+            <li class="locked">🔒 Master Chef</li>
+            <li class="locked">🔒 Playtime Champion</li>
+            <li class="locked">🔒 Sleep Master</li>
+        </ul>
+
+        
+    </section>
+        
+    <script src="script.js"></script>
+</body>
+</html>
