@@ -11,6 +11,18 @@ let feedCount = 0;
 let playCount = 0;
 let sleepCount = 0;
 
+let achievements = {
+    'First Meal': false,
+    'Hungry No More': false,
+    'Master Chef': false,
+    'Playtime Beginner': false,
+    'Playtime Pro': false,
+    'Playtime Champion': false,
+    'Good Night\'s Sleep': false,
+    'Sleepyhead': false,
+    'Sleep Master': false
+};
+
 let audio = new Audio('background-music.mp3');
 audio.loop = true;
 
@@ -112,6 +124,47 @@ function checkGameOver() {
         document.getElementById('game-over').style.display = 'block';
         clearInterval(gameInterval);
         clearInterval(randomizeInterval);
+        resetAchievements(); // Reset prestaties en tellers wanneer de Tamagotchi sterft
+    }
+}
+
+function resetAchievements() {
+    // Reset alle prestaties
+    achievements = {
+        'First Meal': false,
+        'Hungry No More': false,
+        'Master Chef': false,
+        'Playtime Beginner': false,
+        'Playtime Pro': false,
+        'Playtime Champion': false,
+        'Good Night\'s Sleep': false,
+        'Sleepyhead': false,
+        'Sleep Master': false
+    };
+
+    // Reset de tellers
+    feedCount = 0;
+    playCount = 0;
+    sleepCount = 0;
+
+    updateAchievementsUI(); // Update de UI om aan te geven dat prestaties zijn gereset
+}
+
+function updateAchievementsUI() {
+    const achievementList = document.getElementById('achievement-list');
+    const achievementsElements = achievementList.getElementsByTagName('li');
+
+    for (let achievement of achievementsElements) {
+        const achievementText = achievement.textContent.replace('✅ ', '').replace('🔒 ', '');
+        if (achievements[achievementText]) {
+            achievement.classList.remove('locked');
+            achievement.classList.add('unlocked');
+            achievement.textContent = '✅ ' + achievementText;
+        } else {
+            achievement.classList.remove('unlocked');
+            achievement.classList.add('locked');
+            achievement.textContent = '🔒 ' + achievementText;
+        }
     }
 }
 
@@ -127,8 +180,8 @@ function feed() {
     hunger = Math.min(hunger + 1, 10);
     feedCount++;
     if (feedCount === 1) unlockAchievement('First Meal');
-    if (feedCount === 10) unlockAchievement('Hungry No More');
-    if (feedCount === 20) unlockAchievement('Master Chef');
+    if (feedCount === 15) unlockAchievement('Hungry No More');
+    if (feedCount === 30) unlockAchievement('Master Chef');
 
     document.getElementById('tamagotchi-image').src = 'EatTM.png';
     setTimeout(() => {
@@ -144,8 +197,8 @@ function play() {
         energy = Math.max(energy - 1, 0);
         playCount++;
         if (playCount === 1) unlockAchievement('Playtime Beginner');
-        if (playCount === 10) unlockAchievement('Playtime Pro');
-        if (playCount === 20) unlockAchievement('Playtime Champion');
+        if (playCount === 15) unlockAchievement('Playtime Pro');
+        if (playCount === 30) unlockAchievement('Playtime Champion');
 
         document.getElementById('tamagotchi-image').src = 'PlayTM.png';
         setTimeout(() => {
@@ -168,8 +221,8 @@ function sleep() {
     energy = Math.min(energy + 2, 10);
     sleepCount++;
     if (sleepCount === 1) unlockAchievement('Good Night\'s Sleep');
-    if (sleepCount === 10) unlockAchievement('Sleepyhead');
-    if (sleepCount === 20) unlockAchievement('Sleep Master');
+    if (sleepCount === 15) unlockAchievement('Sleepyhead');
+    if (sleepCount === 30) unlockAchievement('Sleep Master');
 
     document.getElementById('tamagotchi-image').src = 'SleepTM.png';
     setTimeout(() => {
@@ -215,16 +268,8 @@ function toggleAchievements() {
 }
 
 function unlockAchievement(achievementText) {
-    const achievementList = document.getElementById('achievement-list');
-    const achievements = achievementList.getElementsByTagName('li');
-
-    for (let achievement of achievements) {
-        if (achievement.textContent.includes(achievementText)) {
-            achievement.classList.remove('locked');
-            achievement.classList.add('unlocked');
-            achievement.textContent = achievement.textContent.replace('🔒 ', '✅ ');
-        }
-    }
+    achievements[achievementText] = true;
+    updateAchievementsUI();
 }
 
 // ==================== Initialisatie ====================
