@@ -23,7 +23,7 @@ let achievements = {
     'Sleep Master': false
 };
 
-let audio = new Audio('background-music.mp3');
+const audio = new Audio('background-music.mp3');
 audio.loop = true;
 
 // ==================== Game State Management ====================
@@ -57,7 +57,7 @@ document.addEventListener('keydown', (event) => {
 
 // ==================== Audio Management ====================
 function setMusicPreference(preference) {
-    localStorage.setItem('musicPreference', preference);
+    localStorage.setItem('playMusic', preference);
     if (preference === 'yes') {
         audio.play();
     } else {
@@ -69,12 +69,35 @@ function toggleMute() {
     if (audio.muted) {
         audio.muted = false;
         document.getElementById('mute-icon').src = 'unmute-icon.png';
+        localStorage.setItem('isMuted', 'false');
     } else {
         audio.muted = true;
         document.getElementById('mute-icon').src = 'volume-mute.png';
+        localStorage.setItem('isMuted', 'true');
     }
 }
 
+// Controleer de muziekvoorkeur bij het laden van de pagina
+function checkMusicPreference() {
+    const musicPreference = localStorage.getItem('playMusic');
+    if (musicPreference === 'yes') {
+        audio.play();
+    }
+}
+
+// Controleer de mute-status bij het laden van de pagina
+function checkMuteStatus() {
+    const isMuted = localStorage.getItem('isMuted');
+    if (isMuted === 'true') {
+        audio.muted = true;
+        document.getElementById('mute-icon').src = "volume-mute.png";
+    } else {
+        audio.muted = false;
+        document.getElementById('mute-icon').src = "unmute-icon.png";
+    }
+}
+
+// Toon de muziekprompt bij het laden van de pagina
 window.onload = () => {
     if (localStorage.getItem('musicPromptShown') !== 'true') {
         const musicModal = document.createElement('div');
@@ -91,6 +114,9 @@ window.onload = () => {
         musicModal.style.display = 'block';
         localStorage.setItem('musicPromptShown', 'true');
     }
+
+    checkMusicPreference();
+    checkMuteStatus();
 };
 
 // ==================== Tamagotchi Management ====================
@@ -124,12 +150,11 @@ function checkGameOver() {
         document.getElementById('game-over').style.display = 'block';
         clearInterval(gameInterval);
         clearInterval(randomizeInterval);
-        resetAchievements(); // Reset prestaties en tellers wanneer de Tamagotchi sterft
+        resetAchievements();
     }
 }
 
 function resetAchievements() {
-    // Reset alle prestaties
     achievements = {
         'First Meal': false,
         'Hungry No More': false,
@@ -142,12 +167,11 @@ function resetAchievements() {
         'Sleep Master': false
     };
 
-    // Reset de tellers
     feedCount = 0;
     playCount = 0;
     sleepCount = 0;
 
-    updateAchievementsUI(); // Update de UI om aan te geven dat prestaties zijn gereset
+    updateAchievementsUI();
 }
 
 function updateAchievementsUI() {

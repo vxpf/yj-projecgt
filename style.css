@@ -141,6 +141,7 @@ p {
 }
 
 .home-container {
+    position: absolute;
     text-align: center;
     overflow: hidden;
     padding: 40px;
@@ -286,15 +287,15 @@ p {
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .pause-button:hover {
-    color: #ff6b6b;
+    color: #ffffff;
 }
 
 #pause-menu {
-    display: none; /* Verberg het pauzemenu standaard */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
@@ -352,9 +353,22 @@ p {
 
 
 #toggle-achievements-button:hover {
-    background-color: #ff4757; 
+    background-color: #ff4757;
 }
 
 #toggle-achievements-button:active {
     transform: scale(0.95); 
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20vh;
+    margin-right: 200vh;
+}
+
+
+.pause-button img {
+    width: 30px;
+    height: 30px;
 }

@@ -5,37 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamagotchi Home</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <button class="mute-button" onclick="toggleMute()">
+        <img id="mute-icon" src="unmute-icon.png" alt="Mute/Unmute">
+    </button>
+
     <audio id="background-music" loop>
         <source src="background-music.mp3" type="audio/mpeg">
     </audio>
 
-
-    <div class="home-container">
+    <section class="home-container">
         <h1>Welcome to Kuchipatchi!</h1>
         <p>Your goal is to take care of your virtual pet by feeding it, keeping it happy, and ensuring it gets enough rest. Monitor your pet's status using the health, hunger, and happiness bars. If any of these drop too low, your Tamagotchi might get sick or even worse, so be attentive!</p>
         <p>Use the buttons in the game to interact with your pet and make sure it thrives!</p>
         <button class="start-button"><a href="index.html">Start Game</a></button>
+    </section>
 
-        <button class="mute-button" onclick="toggleMute()">
-            <img id="mute-icon" src="unmute-icon.png" alt="Mute/Unmute">
-        </button>
-    </div>
-
-    <div id="music-modal" class="modal">
-        <div class="modal-content">
+    <section id="music-modal" class="modal">
+        <section class="modal-content">
             <p>Would you like background music when playing the game?</p>
             <button id="yes-button">Yes</button>
             <button id="no-button">No</button>
-        </div>
-    </div>
+        </section>
+    </section>
 
     <script>
         const audio = document.getElementById('background-music');
         const musicModal = document.getElementById('music-modal');
         const muteButton = document.getElementById('mute-icon');
 
+        // Controleer de muziekvoorkeur bij het laden van de pagina
         function checkMusicPreference() {
             const musicPreference = localStorage.getItem('playMusic');
             if (musicPreference === 'yes') {
@@ -43,18 +44,22 @@
             }
         }
 
+        // Toon de muziekprompt als deze nog niet is getoond
         if (localStorage.getItem('musicPromptShown') !== 'true') {
             musicModal.style.display = 'block';
         }
 
+        // Luister naar klikken op de "Yes"-knop
         document.getElementById('yes-button').addEventListener('click', () => {
             setMusicPreference('yes');
         });
 
+        // Luister naar klikken op de "No"-knop
         document.getElementById('no-button').addEventListener('click', () => {
             setMusicPreference('no');
         });
 
+        // Stel de muziekvoorkeur in
         function setMusicPreference(preference) {
             localStorage.setItem('playMusic', preference);
             localStorage.setItem('musicPromptShown', 'true');
@@ -64,17 +69,33 @@
             musicModal.style.display = 'none';
         }
 
+        // Schakel tussen mute en unmute
         function toggleMute() {
             if (audio.muted) {
                 audio.muted = false;
-                muteButton.src = "unmute-icon.png"; 
+                muteButton.src = "unmute-icon.png";
+                localStorage.setItem('isMuted', 'false');
             } else {
                 audio.muted = true;
-                muteButton.src = "volume-mute.png"; 
+                muteButton.src = "volume-mute.png";
+                localStorage.setItem('isMuted', 'true');
+            }
+        }
+
+        // Controleer de mute-status bij het laden van de pagina
+        function checkMuteStatus() {
+            const isMuted = localStorage.getItem('isMuted');
+            if (isMuted === 'true') {
+                audio.muted = true;
+                muteButton.src = "volume-mute.png";
+            } else {
+                audio.muted = false;
+                muteButton.src = "unmute-icon.png";
             }
         }
 
         checkMusicPreference();
+        checkMuteStatus();
     </script>
 </body>
 </html>
